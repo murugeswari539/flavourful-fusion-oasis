@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ShoppingCart, Plus, Minus, Trash2, X } from 'lucide-react';
+import { ShoppingCart as ShoppingCartIcon, Plus, Minus, Trash2, X } from 'lucide-react';
 
 interface CartItem {
   id: string;
@@ -55,7 +54,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b">
             <div className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-saffron-600" />
+              <ShoppingCartIcon className="h-5 w-5 text-saffron-600" />
               <h2 className="text-xl font-semibold">Your Order</h2>
               <Badge variant="secondary">{items.length}</Badge>
             </div>
@@ -68,7 +67,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           <div className="flex-1 overflow-y-auto p-6">
             {items.length === 0 ? (
               <div className="text-center py-12">
-                <ShoppingCart className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                <ShoppingCartIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
                 <p className="text-lg font-medium text-gray-500 mb-2">Your cart is empty</p>
                 <p className="text-sm text-gray-400">Add some delicious items to get started</p>
               </div>
