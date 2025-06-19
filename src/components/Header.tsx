@@ -1,10 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Menu, User, Bell, ShoppingCart as ShoppingCartIcon } from 'lucide-react';
+import { Menu, User, Bell, ShoppingCart as ShoppingCartIcon, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   cartItems?: number;
@@ -20,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,8 +38,13 @@ const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLoginClick = () => {
-    console.log('Login clicked - navigating to login page');
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "👋 Logged Out",
+      description: "You have been successfully logged out.",
+      className: "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 text-blue-800",
+    });
     navigate('/login');
   };
 
@@ -123,15 +137,28 @@ const Header: React.FC<HeaderProps> = ({
               )}
             </Button>
 
-            {/* User Profile */}
-            <Button 
-              variant="ghost" 
-              size="icon"
-              className="hover:bg-emerald-50"
-              onClick={handleLoginClick}
-            >
-              <User className="h-5 w-5" />
-            </Button>
+            {/* User Profile with Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="hover:bg-emerald-50"
+                >
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  {user?.email || 'My Account'}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Mobile Menu Button */}
             <Button 

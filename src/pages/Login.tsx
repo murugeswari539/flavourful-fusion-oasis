@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Mail, Lock, ArrowLeft } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ const Login = () => {
   
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,28 +51,36 @@ const Login = () => {
     }
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const success = await login(formData.email, formData.password);
       
-      console.log('Login successful:', formData);
-      
-      // Show success toast with new emerald styling
-      toast({
-        title: "🎉 Welcome Back!",
-        description: `Successfully logged in as ${formData.email}. Redirecting to home...`,
-        className: "bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200 text-emerald-800",
-      });
+      if (success) {
+        console.log('Login successful:', formData);
+        
+        // Show success toast
+        toast({
+          title: "🎉 Welcome Back!",
+          description: `Successfully logged in as ${formData.email}. Redirecting to home...`,
+          className: "bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200 text-emerald-800",
+        });
 
-      // Navigate to home page after successful login
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
-
+        // Navigate to home page after successful login
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
+      } else {
+        setError('Invalid credentials. Please try again.');
+        toast({
+          title: "❌ Login Failed",
+          description: "Invalid credentials. Please check your email and password.",
+          variant: "destructive",
+          className: "bg-gradient-to-r from-red-50 to-rose-50 border-red-200",
+        });
+      }
     } catch (error) {
       setError('Login failed. Please try again.');
       toast({
         title: "❌ Login Failed",
-        description: "Invalid credentials. Please check your email and password.",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
         className: "bg-gradient-to-r from-red-50 to-rose-50 border-red-200",
       });
@@ -82,26 +92,16 @@ const Login = () => {
   return (
     <div className="min-h-screen login-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Back to Home Button */}
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/')}
-          className="mb-6 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Home
-        </Button>
-
         <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
           <CardHeader className="text-center pb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-white font-bold text-2xl">S</span>
             </div>
             <CardTitle className="text-2xl font-bold text-gradient">
-              Welcome Back
+              Welcome to Spice Garden
             </CardTitle>
             <p className="text-muted-foreground mt-2">
-              Sign in to your Spice Garden account
+              Please sign in to access our menu and place orders
             </p>
           </CardHeader>
 
@@ -166,16 +166,6 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center space-x-2 cursor-pointer">
-                  <input type="checkbox" className="rounded border-gray-300" />
-                  <span className="text-muted-foreground">Remember me</span>
-                </label>
-                <a href="#" className="text-emerald-600 hover:text-emerald-700 hover:underline">
-                  Forgot password?
-                </a>
-              </div>
-
               <Button
                 type="submit"
                 className="w-full h-12 payment-btn text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
@@ -187,14 +177,14 @@ const Login = () => {
                     <span>Signing In...</span>
                   </div>
                 ) : (
-                  'Sign In'
+                  'Sign In to Access Menu'
                 )}
               </Button>
 
               <div className="text-center text-sm text-muted-foreground">
                 Don't have an account?{' '}
                 <a href="#" className="text-emerald-600 hover:text-emerald-700 hover:underline font-medium">
-                  Sign up now
+                  Contact us to register
                 </a>
               </div>
             </form>
