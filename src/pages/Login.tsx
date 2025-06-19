@@ -27,7 +27,7 @@ const Login = () => {
       ...prev,
       [name]: value
     }));
-    setError(''); // Clear error when user starts typing
+    setError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,20 +52,19 @@ const Login = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // For demo purposes, accept any email/password combination
       console.log('Login successful:', formData);
       
-      // Show success toast with better styling
+      // Show success toast with new emerald styling
       toast({
         title: "🎉 Welcome Back!",
-        description: `Successfully logged in as ${formData.email}`,
-        className: "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 text-green-800",
+        description: `Successfully logged in as ${formData.email}. Redirecting to home...`,
+        className: "bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200 text-emerald-800",
       });
 
       // Navigate to home page after successful login
       setTimeout(() => {
         navigate('/');
-      }, 1000);
+      }, 1500);
 
     } catch (error) {
       setError('Login failed. Please try again.');
@@ -81,21 +80,21 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-saffron-50 via-white to-curry-50 flex items-center justify-center p-4">
+    <div className="min-h-screen login-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Back to Home Button */}
         <Button 
           variant="ghost" 
           onClick={() => navigate('/')}
-          className="mb-6 text-saffron-600 hover:text-saffron-700 hover:bg-saffron-50"
+          className="mb-6 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Home
         </Button>
 
-        <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
           <CardHeader className="text-center pb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-saffron-400 to-spice-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-white font-bold text-2xl">S</span>
             </div>
             <CardTitle className="text-2xl font-bold text-gradient">
@@ -129,7 +128,7 @@ const Login = () => {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="pl-10 h-12 border-gray-200 focus:border-saffron-400 focus:ring-saffron-400"
+                    className="pl-10 h-12 border-gray-200 focus:border-emerald-400 focus:ring-emerald-400"
                     required
                   />
                 </div>
@@ -148,7 +147,7 @@ const Login = () => {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="pl-10 pr-12 h-12 border-gray-200 focus:border-saffron-400 focus:ring-saffron-400"
+                    className="pl-10 pr-12 h-12 border-gray-200 focus:border-emerald-400 focus:ring-emerald-400"
                     required
                   />
                   <Button
@@ -172,14 +171,14 @@ const Login = () => {
                   <input type="checkbox" className="rounded border-gray-300" />
                   <span className="text-muted-foreground">Remember me</span>
                 </label>
-                <a href="#" className="text-saffron-600 hover:text-saffron-700 hover:underline">
+                <a href="#" className="text-emerald-600 hover:text-emerald-700 hover:underline">
                   Forgot password?
                 </a>
               </div>
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-saffron-500 to-spice-600 hover:from-saffron-600 hover:to-spice-700 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                className="w-full h-12 payment-btn text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -194,7 +193,7 @@ const Login = () => {
 
               <div className="text-center text-sm text-muted-foreground">
                 Don't have an account?{' '}
-                <a href="#" className="text-saffron-600 hover:text-saffron-700 hover:underline font-medium">
+                <a href="#" className="text-emerald-600 hover:text-emerald-700 hover:underline font-medium">
                   Sign up now
                 </a>
               </div>

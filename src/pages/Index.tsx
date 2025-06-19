@@ -61,7 +61,6 @@ const Index = () => {
       }
     });
     
-    // Show a brief success animation
     console.log(`Added ${item.name} to cart`);
   };
 
@@ -106,11 +105,6 @@ const Index = () => {
     setIsCartOpen(true);
   };
 
-  const handleLoginClick = () => {
-    console.log('Login clicked - implement authentication');
-    alert('Login functionality would be implemented here');
-  };
-
   const handleMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     console.log('Mobile menu toggled');
@@ -124,22 +118,18 @@ const Index = () => {
 
   const handleReservationSubmit = (reservation: any) => {
     console.log('Reservation submitted:', reservation);
-    // In a real app, this would send data to your backend
   };
 
   const handleContactSubmit = (contactData: any) => {
     console.log('Contact form submitted:', contactData);
-    // In a real app, this would send data to your backend
   };
 
   const handleNewsletterSubscribe = (email: string) => {
     console.log('Newsletter subscription:', email);
-    // In a real app, this would send email to your backend
   };
 
   const handleToggleFavorite = (item: MenuItem) => {
     console.log('Toggled favorite for:', item.name);
-    // In a real app, this would save to user preferences
   };
 
   return (
@@ -149,7 +139,6 @@ const Index = () => {
         cartItems={getTotalCartItems()}
         onMenuClick={handleMobileMenuClick}
         onCartClick={handleCartClick}
-        onLoginClick={handleLoginClick}
       />
 
       {/* Main Content */}

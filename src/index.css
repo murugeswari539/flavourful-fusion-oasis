@@ -96,14 +96,14 @@
   }
 }
 
-/* Custom restaurant styling */
+/* Updated restaurant styling with emerald and earth tones */
 @layer components {
   .restaurant-gradient {
-    background: linear-gradient(135deg, #f18f01 0%, #dc2626 50%, #84cc16 100%);
+    background: linear-gradient(135deg, #059669 0%, #dc2626 50%, #f59e0b 100%);
   }
   
   .spice-shadow {
-    box-shadow: 0 4px 20px rgba(241, 143, 1, 0.3);
+    box-shadow: 0 4px 20px rgba(5, 150, 105, 0.3);
   }
   
   .hover-lift {
@@ -116,25 +116,25 @@
   }
   
   .dish-card {
-    background: linear-gradient(145deg, #ffffff 0%, #fef8e8 100%);
-    border: 1px solid rgba(241, 143, 1, 0.2);
+    background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+    border: 1px solid rgba(5, 150, 105, 0.2);
     transition: all 0.3s ease;
   }
   
   .dish-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(241, 143, 1, 0.2);
-    border-color: rgba(241, 143, 1, 0.4);
+    box-shadow: 0 10px 30px rgba(5, 150, 105, 0.2);
+    border-color: rgba(5, 150, 105, 0.4);
   }
   
   .text-gradient {
-    background: linear-gradient(135deg, #f18f01 0%, #dc2626 100%);
+    background: linear-gradient(135deg, #059669 0%, #dc2626 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Enhanced toast notifications */
+  /* Enhanced toast notifications with new color scheme */
   .toast-success {
     background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
     border: 1px solid #bbf7d0;
@@ -172,16 +172,28 @@ html {
   animation: shimmer 1.5s infinite;
 }
 
-/* Enhanced button hover effects */
+/* Enhanced button hover effects with new emerald theme */
 .btn-gradient {
-  background: linear-gradient(135deg, #f18f01 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #059669 0%, #dc2626 100%);
   transition: all 0.3s ease;
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(135deg, #e67e22 0%, #b91c1c 100%);
+  background: linear-gradient(135deg, #047857 0%, #b91c1c 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(241, 143, 1, 0.3);
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3);
+}
+
+/* Payment button styling */
+.payment-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  transition: all 0.3s ease;
+}
+
+.payment-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
 }
 
 /* Toast notification enhancements */
@@ -199,4 +211,15 @@ html {
 [data-sonner-toast][data-type="error"] {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
   border: 1px solid #fecaca;
+}
+
+/* Login page styling */
+.login-gradient {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%);
+}
+
+/* Cart styling */
+.cart-total {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid #bbf7d0;
 }
