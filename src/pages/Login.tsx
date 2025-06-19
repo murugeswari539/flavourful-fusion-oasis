@@ -60,7 +60,7 @@ const Login = () => {
         toast({
           title: "🎉 Welcome Back!",
           description: `Successfully logged in as ${formData.email}. Redirecting to home...`,
-          className: "bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200 text-emerald-800",
+          className: "bg-gradient-to-r from-pink-50 to-blue-50 border-pink-200 text-pink-800",
         });
 
         // Navigate to home page after successful login
@@ -89,12 +89,20 @@ const Login = () => {
     }
   };
 
+  const handleContactUs = () => {
+    toast({
+      title: "📞 Contact Information",
+      description: "Email: support@spicegarden.com | Phone: +91 98765 43210",
+      className: "bg-gradient-to-r from-blue-50 to-pink-50 border-blue-200 text-blue-800",
+    });
+  };
+
   return (
     <div className="min-h-screen login-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm hover-lift">
           <CardHeader className="text-center pb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 hover-lift">
               <span className="text-white font-bold text-2xl">S</span>
             </div>
             <CardTitle className="text-2xl font-bold text-gradient">
@@ -128,7 +136,7 @@ const Login = () => {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="pl-10 h-12 border-gray-200 focus:border-emerald-400 focus:ring-emerald-400"
+                    className="pl-10 h-12 border-gray-200 focus:border-pink-400 focus:ring-pink-400 hover-lift"
                     required
                   />
                 </div>
@@ -147,7 +155,7 @@ const Login = () => {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="pl-10 pr-12 h-12 border-gray-200 focus:border-emerald-400 focus:ring-emerald-400"
+                    className="pl-10 pr-12 h-12 border-gray-200 focus:border-pink-400 focus:ring-pink-400 hover-lift"
                     required
                   />
                   <Button
@@ -183,9 +191,13 @@ const Login = () => {
 
               <div className="text-center text-sm text-muted-foreground">
                 Don't have an account?{' '}
-                <a href="#" className="text-emerald-600 hover:text-emerald-700 hover:underline font-medium">
+                <button 
+                  type="button"
+                  onClick={handleContactUs}
+                  className="text-pink-600 hover:text-pink-700 hover:underline font-medium cursor-pointer"
+                >
                   Contact us to register
-                </a>
+                </button>
               </div>
             </form>
           </CardContent>
