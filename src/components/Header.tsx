@@ -2,22 +2,24 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Menu, User, Bell, ShoppingCart } from 'lucide-react';
+import { Menu, User, Bell, ShoppingCart as ShoppingCartIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface HeaderProps {
   cartItems?: number;
   onMenuClick?: () => void;
   onCartClick?: () => void;
-  onLoginClick?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
   cartItems = 0, 
   onMenuClick, 
-  onCartClick, 
-  onLoginClick 
+  onCartClick
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,19 @@ const Header: React.FC<HeaderProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLoginClick = () => {
+    console.log('Login clicked - navigating to login page');
+    navigate('/login');
+  };
+
+  const handleNotificationClick = () => {
+    toast({
+      title: "🔔 Notifications",
+      description: "You have 3 new offers and updates waiting for you!",
+      className: "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 text-blue-800",
+    });
+  };
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -44,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
             <div className="w-10 h-10 bg-gradient-to-br from-saffron-400 to-spice-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-lg">S</span>
             </div>
@@ -75,11 +90,16 @@ const Header: React.FC<HeaderProps> = ({
           {/* Right Side Actions */}
           <div className="flex items-center space-x-4">
             {/* Notifications */}
-            <Button variant="ghost" size="icon" className="relative">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative hover:bg-saffron-50"
+              onClick={handleNotificationClick}
+            >
               <Bell className="h-5 w-5" />
               <Badge 
                 variant="destructive" 
-                className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+                className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-gradient-to-r from-red-500 to-rose-600"
               >
                 3
               </Badge>
@@ -89,14 +109,14 @@ const Header: React.FC<HeaderProps> = ({
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative"
+              className="relative hover:bg-saffron-50"
               onClick={onCartClick}
             >
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCartIcon className="h-5 w-5" />
               {cartItems > 0 && (
                 <Badge 
                   variant="destructive" 
-                  className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs animate-bounce-gentle"
+                  className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs animate-bounce-gentle bg-gradient-to-r from-saffron-500 to-spice-600"
                 >
                   {cartItems}
                 </Badge>
@@ -107,7 +127,8 @@ const Header: React.FC<HeaderProps> = ({
             <Button 
               variant="ghost" 
               size="icon"
-              onClick={onLoginClick}
+              className="hover:bg-saffron-50"
+              onClick={handleLoginClick}
             >
               <User className="h-5 w-5" />
             </Button>
@@ -116,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({
             <Button 
               variant="ghost" 
               size="icon" 
-              className="md:hidden"
+              className="md:hidden hover:bg-saffron-50"
               onClick={onMenuClick}
             >
               <Menu className="h-5 w-5" />
